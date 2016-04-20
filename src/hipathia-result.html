@@ -1,13 +1,10 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 
-<link rel="import" href="../bower_components/network-viewer/jso-network-viewer.html">
+<link rel="import" href="../bower_components/network-viewer/network-viewer.html">
 
 <dom-module id="hipathia-result">
     <style is="custom-style" include="iron-flex iron-flex-reverse iron-flex-alignment iron-flex-factors iron-positioning"></style>
-    <link href='../bower_components/network-viewer/lib/components/jso-global.css' rel='stylesheet' type='text/css'>
-    <link href='../bower_components/network-viewer/lib/components/jso-form.css' rel='stylesheet' type='text/css'>
-    <link href='../bower_components/network-viewer/lib/components/jso-dropdown.css' rel='stylesheet' type='text/css'>
     <style>
         :host {
             display: block;
@@ -340,21 +337,37 @@
                     var line, fields, field, data = [],
                         columns = [],
                         obj;
-                    var firstLine = lines[0].replace('#', '');
-                    fields = firstLine.split('\t');
-                    for (var i = 0; i < fields.length; i++) {
-                        field = fields[i];
-                        field = field.trim();
-                        var name = field.replace(/ /gi, '_');
-                        var width = 150;
-                        if (i === 0) {
-                            width = 400;
+
+                    if (lines[0].charAt(0) == '#') {
+                        var firstLine = lines[0].replace('#', '');
+                        fields = firstLine.split('\t');
+                        for (var i = 0; i < fields.length; i++) {
+                            field = fields[i];
+                            field = field.trim();
+                            var name = field.replace(/ /gi, '_');
+                            var width = 150;
+                            if (i === 0) {
+                                width = 400;
+                            }
+                            columns.push({
+                                name: name,
+                                title: name.replace('path', 'circuit'),
+                                width: width
+                            });
                         }
-                        columns.push({
-                            name: name,
-                            title: name,
-                            width: width
-                        });
+                    } else {
+                        var colCount = lines[0].split('\t').length;
+                        for (var i = 0; i < colCount; i++) {
+                            var width = 150;
+                            if (i === 0) {
+                                width = 400;
+                            }
+                            columns.push({
+                                name: i.toString(),
+                                title: "Column " + i.toString(),
+                                width: width
+                            });
+                        }
                     }
 
                     if (columns.length) {

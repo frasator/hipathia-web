@@ -5,6 +5,7 @@
 <script src="bower_components/crypto-js/core.js"></script>
 <script src="bower_components/crypto-js/sha1.js"></script>
 
+
 <link rel="import" href="bower_components/stevia-components/src/stv-header.html">
 <link rel="import" href="bower_components/stevia-components/src/stv-application-behavior.html">
 <link rel="import" href="bower_components/stevia-components/src/stv-footer.html">
@@ -12,11 +13,14 @@
 <link rel="import" href="bower_components/stevia-components/src/stv-select.html">
 <link rel="import" href="bower_components/stevia-components/src/stv-select-box.html">
 <link rel="import" href="bower_components/stevia-components/src/stv-panel.html">
+<link rel="import" href="bower_components/stevia-components/src/dropdown/stv-dropdown.html">
 
 <link rel="import" href="bower_components/stevia-components/src/table/stv-table.html">
 <link rel="import" href="bower_components/stevia-components/src/form/stv-file-origin.html">
 <link rel="import" href="bower_components/stevia-components/src/file/stv-file-browser.html">
 <link rel="import" href="bower_components/stevia-components/src/job/stv-job-browser.html">
+
+<script src="bower_components/stevia-components/src/validator/expression-validator.js"></script>
 
 <link rel="import" href="src/hipathia-home.html">
 <link rel="import" href="src/hipathia-signaling-form.html">
@@ -179,20 +183,32 @@
                 <div style="margin-left:2vw;"></div>
             </div>
 
-            <stv-help-menu class="helpmenu" selectedOption="{{selectedOption}}">
-                <a href="http://hipathia.babelomics.org/doc" target="_blank">
-                    <i class="fa fa-book"></i> &nbsp; Documentation
-                </a>
-                <div style="margin-top:15px;" on-mousedown="handleExample" data-example-name="differential-signaling">
-                    <i class="fa fa-lightbulb-o"></i> &nbsp; Differential signaling example
-                </div>
-                <div on-mousedown="handleExample" data-example-name="prediction-train">
-                    <i class="fa fa-lightbulb-o"></i> &nbsp; Prediction train example
-                </div>
-                <div on-mousedown="handleExample" data-example-name="prediction-test">
-                    <i class="fa fa-lightbulb-o"></i> &nbsp; Prediction test example
-                </div>
-            </stv-help-menu>
+            <stv-dropdown dark class="helpmenu">
+                <div data-button><i class="fa fa-question-circle"></i></div>
+                <ul data-menu>
+                    <a href="http://hipathia.babelomics.org/doc" target="_blank">
+                        <li>
+                            <i class="fa fa-book"></i> &nbsp; Documentation
+                        </li>
+                    </a>
+                    <li data-divider></li>
+                    <li>
+                        <div on-mousedown="handleExample" data-example-name="differential-signaling">
+                            <i class="fa fa-lightbulb-o"></i> &nbsp; Differential signaling example
+                        </div>
+                    </li>
+                    <li>
+                        <div on-mousedown="handleExample" data-example-name="prediction-train">
+                            <i class="fa fa-lightbulb-o"></i> &nbsp; Prediction train example
+                        </div>
+                    </li>
+                    <li>
+                        <div on-mousedown="handleExample" data-example-name="prediction-test">
+                            <i class="fa fa-lightbulb-o"></i> &nbsp; Prediction test example
+                        </div>
+                    </li>
+                </ul>
+            </stv-dropdown>
         </stv-header>
 
         <stv-footer menu-option="home,login,signup,profile,remember">
@@ -214,11 +230,12 @@
                     notify: true,
                     value: [{
                         value: 'DATAMATRIX_EXPRESSION',
-                        text: 'Data matrix expression'
+                        text: 'Data matrix expression',
+                        validator: ExpressionValidator
                     }, {
                         value: 'VARIANT',
                         text: 'Variant (VCF)',
-                        // validator: VCFValidator
+                        validator: VCFValidator
                     }, {
                         value: 'IDLIST',
                         text: 'Experimental design'
