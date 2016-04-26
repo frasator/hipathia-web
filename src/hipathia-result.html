@@ -105,10 +105,14 @@
                         files = files.concat(files1);
                         SteviaManager.getPlainFolderFiles(neo.options["exp_file"].value, function(files2) {
                             files = files.concat(files2);
-                            SteviaManager.getPlainFolderFiles(neo.options["design_file"].value, function(files3) {
-                                files = files.concat(files3);
+                            if (neo.options["design_file"] != null) {
+                                SteviaManager.getPlainFolderFiles(neo.options["design_file"].value, function(files3) {
+                                    files = files.concat(files3);
+                                    me.processResultFiles(files);
+                                });
+                            } else {
                                 me.processResultFiles(files);
-                            });
+                            }
                         });
                     });
                 }
@@ -304,7 +308,7 @@
                 domModule.appendChild(style);
                 domModule.appendChild(template);
 
-                var rndstr = Math.floor(Math.random() * (1000 - 9999 + 1)) + 1000 ;
+                var rndstr = Math.floor(Math.random() * (1000 - 9999 + 1)) + 1000;
                 var elname = 'stv-hipathia-result-gen' + rndstr;
                 domModule.register(elname);
 
@@ -371,9 +375,9 @@
                     }
 
                     if (columns.length) {
-                        for (var i = 1; i < lines.length; i++) {
+                        for (var i = 0; i < lines.length; i++) {
                             line = lines[i];
-                            if (line != '') {
+                            if (line != '' && line.charAt(0) != '#') {
                                 fields = line.split('\t');
                                 obj = {};
                                 for (var j = 0; j < fields.length; j++) {

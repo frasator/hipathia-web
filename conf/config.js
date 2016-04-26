@@ -3,4 +3,5 @@
  * Changes to this file may cause the application does not work as it should
  **/
 STEVIA_MANAGER_LOG = true;
-STEVIA_SERVER_HOST = 'http://fsalavert:5555';
+STEVIA_SERVER_HOST = 'http://stvtest.babelomics.org';
+// STEVIA_SERVER_HOST = 'http://localhost:5555';
