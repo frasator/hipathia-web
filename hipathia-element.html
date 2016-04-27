@@ -248,6 +248,12 @@
                     }
                 },
             },
+            selectedOptionChanged: function(neo, old) {
+                if (this.selectedOption == 'signaling' || this.selectedOption == 'prediction') {
+                    this.$.fileBrowserPanel.hide();
+                    this.$.jobBrowserPanel.hide();
+                }
+            },
             ready: function() {
                 var me = this;
                 this.selectedOption = "home";
@@ -276,10 +282,12 @@
             handleLogin: function() {
                 this.selectedOption = "home";
                 if (this._lastLogedRequest) {
-                    this._lastLogedRequest.hidden = false;
                     this._lastLogedRequest = null;
                 }
-
+                if (this._lastExampleRequest) {
+                    this.runExample(this._lastExampleRequest);
+                    this._lastExampleRequest = null;
+                }
                 this.$.home.isLogged = true;
                 this.checkShowMenuOnLogin();
             },
@@ -298,26 +306,26 @@
                 this.setMenu('signaling');
             },
 
-            // handleExample: function(e) {
-            //     if (this.$.jsoHeader.isLogged != true) {
-            //         this._lastExampleRequest = e.currentTarget.dataset['exampleName'];
-            //         this.$.jsoHeader.anonymousSign();
-            //     } else {
-            //         this.runExample(e.currentTarget.dataset['exampleName']);
-            //         this.$.jobsPanel.show();
-            //     }
-            // },
-            // runExample: function(exname) {
-            //     if (exname === 'differential-signaling') {
-            //         this.$.signalingForm.runExample();
-            //     }
-            //     if (exname === 'prediction-train') {
-            //         this.$.predictionForm.runTrainExample();
-            //     }
-            //     if (exname === 'prediction-test') {
-            //         this.$.predictionForm.runTestExample();
-            //     }
-            // },
+            handleExample: function(e) {
+                if (this.$.stvHeader.isLogged != true) {
+                    this._lastExampleRequest = e.currentTarget.dataset['exampleName'];
+                    this.$.stvHeader.anonymousSign();
+                } else {
+                    this.runExample(e.currentTarget.dataset['exampleName']);
+                    this.$.jobBrowserPanel.show();
+                }
+            },
+            runExample: function(exname) {
+                if (exname === 'differential-signaling') {
+                    this.$.signalingForm.runExample();
+                }
+                if (exname === 'prediction-train') {
+                    this.$.predictionForm.runTrainExample();
+                }
+                if (exname === 'prediction-test') {
+                    this.$.predictionForm.runTestExample();
+                }
+            },
 
             handleLaunchTest: function(e) {
                 var me = this;

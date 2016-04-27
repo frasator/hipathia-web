@@ -5,3 +5,5 @@
 STEVIA_MANAGER_LOG = true;
 STEVIA_SERVER_HOST = 'http://stvtest.babelomics.org';
 // STEVIA_SERVER_HOST = 'http://localhost:5555';
+
+STEVIA_SHOW_JOB_ERROR_FILES = true;
