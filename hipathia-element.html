@@ -20,7 +20,7 @@
 <link rel="import" href="bower_components/stevia-components/src/file/stv-file-browser.html">
 <link rel="import" href="bower_components/stevia-components/src/job/stv-job-browser.html">
 
-<script src="bower_components/stevia-components/src/validator/expression-validator.js"></script>
+<script src="conf/bioformats.js"></script>
 
 <link rel="import" href="src/hipathia-home.html">
 <link rel="import" href="src/hipathia-signaling-form.html">
@@ -228,18 +228,7 @@
                 bioformats: {
                     type: Array,
                     notify: true,
-                    value: [{
-                        value: 'DATAMATRIX_EXPRESSION',
-                        text: 'Data matrix expression',
-                        validator: ExpressionValidator
-                    }, {
-                        value: 'VARIANT',
-                        text: 'Variant (VCF)',
-                        validator: VCFValidator
-                    }, {
-                        value: 'IDLIST',
-                        text: 'Experimental design'
-                    }, ]
+                    value: [BIOFORMATS["DATAMATRIX_EXPRESSION"], BIOFORMATS["VARIANT"], BIOFORMATS["EXPERIMENTAL_DESIGN"]]
                 },
                 allowedTools: {
                     type: Array,
@@ -325,123 +314,6 @@
                 if (exname === 'prediction-test') {
                     this.$.predictionForm.runTestExample();
                 }
-            },
-
-            handleLaunchTest: function(e) {
-                var me = this;
-                console.log('Launch test');
-                var query = {
-                    sid: Cookies("bioinfo_sid"),
-                    name: 'El job',
-                    description: 'la desc',
-                    outdirId: '56cae4eba1276eac042b53a4',
-                };
-                var jobConfig = {
-                    tool: 'test',
-                    execution: 'test',
-                    executable: 'test.sh',
-                    options: {
-                        input1: {
-                            type: 'file',
-                            mode: 'id',
-                            value: '56cb2edf5ef99403282a7640'
-                        },
-                        input2: {
-                            type: 'file',
-                            mode: 'text',
-                            value: 'test input 2\nthis file is text'
-                        },
-                        outdir: {
-                            out: true,
-                        },
-                        param1: {
-                            type: 'text',
-                            value: 'param1val'
-                        },
-                        f: {
-                            type: 'flag',
-                            short: true
-                        }
-                    }
-                };
-
-                /**/
-                /**/
-                var query = {
-                    sid: Cookies("bioinfo_sid"),
-                    name: 'Differential signaling job',
-                    description: 'test diff sign',
-                    outdirId: '56e6d0ed5d07cb333f39f6d0'
-                };
-                var jobConfig = {
-                    tool: 'pathways',
-                    execution: 'differential-signaling',
-                    executable: 'differential-signaling.sh',
-                    options: {
-                        "exp_file": {
-                            type: 'file',
-                            mode: 'id',
-                            value: '56e6c91d67fd4ad8567b5e4c'
-                        },
-                        "design_file": {
-                            type: 'file',
-                            mode: 'id',
-                            value: '56e6c919ff6002ce567adada'
-                        },
-                        "output_folder": {
-                            out: true,
-                        },
-                        cond1: {
-                            type: 'text',
-                            value: 'Normal'
-                        },
-                        cond2: {
-                            type: 'text',
-                            value: 'Tumor'
-                        },
-                        // "pathways_list": {
-                        //     type: 'text',
-                        //     value: "04014,04015,04010,04012,04310,04330,04340,04350,04390,04370,04630,04064,04668,04066,04068,04020,04071,04024,04022,04151,04152,04150,04110,04114,04210,04115,04510,04520,04530,04540,04611,04620,04621,04622,04650,04660,04662,04664,04666,04670,04062,04910,04922,04920,03320,04912,04915,04914,04921,04919,04916,04261,04270,04722,05200,05231,05202,05205"
-                        // },
-                        "pathways_list": {
-                            type: 'text',
-                            value: "04014"
-                        },
-                        "species": {
-                            type: 'text',
-                            value: "hsa"
-                        },
-                        "design_type": {
-                            type: 'text',
-                            value: "categorical"
-                        },
-                        "verbose": {
-                            type: 'flag'
-                        }
-                    }
-                };
-
-                SteviaManager.jobs.create({
-                    query: query,
-                    request: {
-                        method: 'POST',
-                        headers: {
-                            "Content-Type": "application/json"
-                        },
-                        body: JSON.stringify(jobConfig),
-                        success: function(response) {
-                            if (response.response[0].error == null) {
-                                console.log(response);
-                            } else {
-                                console.log(response.response[0].error);
-                            }
-                            me.handleUserNeedRefresh();
-                        },
-                        error: function() {
-                            console.log('Server error, try again later.');
-                        }
-                    }
-                });
             }
         });
     </script>

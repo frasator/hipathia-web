@@ -23,25 +23,15 @@
             },
             variantBioformat: {
                 type: Array,
-                value: [{
-                    value: 'VARIANT',
-                    text: 'Variant (VCF)',
-                    // validator: VCFValidator
-                }]
+                value: [BIOFORMATS["VARIANT"]]
             },
             matrixBioformat: {
                 type: Array,
-                value: [{
-                    value: 'DATAMATRIX_EXPRESSION',
-                    text: 'Data matrix expression'
-                }]
+                value: [BIOFORMATS["DATAMATRIX_EXPRESSION"]]
             },
             designBioformat: {
                 type: Array,
-                value: [{
-                    value: 'IDLIST',
-                    text: 'Experimental design'
-                }]
+                value: [BIOFORMATS["EXPERIMENTAL_DESIGN"]]
             },
             expressionMode: {
                 type: String,
@@ -148,11 +138,11 @@
             var file = e.currentTarget.selectedFile;
             this._getConditionsFromDesignFile(file._id);
 
-            var bool = (file != null && file.bioformat == "IDLIST");
+            var bool = (file != null && file.bioformat == "EXPERIMENTAL_DESIGN");
             if (bool) {
                 this.$.design_fileError.innerHTML = '';
             } else {
-                this.$.design_fileError.innerHTML = 'This file is not a idlist design file';
+                this.$.design_fileError.innerHTML = 'This file is not a experimental design file';
             }
             return bool;
         },
