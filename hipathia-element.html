@@ -120,13 +120,6 @@
         </div>
 
         <div class="content" menu-option="home,job,signaling,prediction">
-            <stv-panel id="fileBrowserPanel" hidden collapsible movable closable resizable on-hidden="handlePanelHidden">
-                <div class="header">
-                    <i class="fa fa-cloud"></i>&nbsp; Browse my data
-                </div>
-                <stv-file-browser id="fileBrowser" class="container flex" on-fileselect="handleFileSelect" bioformats="{{bioformats}}" on-need-refresh="handleUserNeedRefresh" user-data="{{userData}}">
-                </stv-file-browser>
-            </stv-panel>
             <stv-panel id="jobBrowserPanel" hidden collapsible movable closable on-hidden="handlePanelHidden">
                 <div class="header">
                     <i class="fa fa-flask"></i>&nbsp; Browse my jobs
@@ -134,6 +127,13 @@
                 <stv-job-browser id="jobBrowser" class="container flex" on-jobselect="handleJobSelect" allowed-tools="{{allowedTools}}" on-need-refresh="handleUserNeedRefresh" user-data="{{userData}}" disable-relaunch="{{disableRelaunch}}" hide-status-filter="{{hideStatusFilter}}"
                     hide-tool-filter="{{hideToolFilter}}">
                 </stv-job-browser>
+            </stv-panel>
+            <stv-panel id="fileBrowserPanel" hidden collapsible movable closable resizable on-hidden="handlePanelHidden">
+                <div class="header">
+                    <i class="fa fa-cloud"></i>&nbsp; Browse my data
+                </div>
+                <stv-file-browser id="fileBrowser" class="container flex" on-fileselect="handleFileSelect" bioformats="{{bioformats}}" on-need-refresh="handleUserNeedRefresh" user-data="{{userData}}">
+                </stv-file-browser>
             </stv-panel>
         </div>
 
