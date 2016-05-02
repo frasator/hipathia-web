@@ -1,0 +1,27 @@
+#!/bin/sh
+NAME="hipathia"
+ELEMENT="hipathia-element"
+BP=build
+
+rm -rf $BP
+mkdir -p $BP
+mkdir -p $BP/fontawesome
+mkdir -p $BP/webcomponentsjs
+
+vulcanize --inline-scripts --inline-css --strip-comments $ELEMENT.html > $BP/$ELEMENT.html
+
+cp -r $NAME-index.html $BP/index.html
+cp -r conf/ $BP/
+cp -r pathway_list.json $BP/
+cp -r bower_components/stevia-components/fonts/ $BP/
+cp -r bower_components/stevia-components/css/ $BP/
+cp -r bower_components/fontawesome/css $BP/fontawesome/
+cp -r bower_components/fontawesome/fonts $BP/fontawesome/
+cp -r bower_components/webcomponentsjs/*.min.js $BP/webcomponentsjs/
+
+#
+# fix index.html paths
+#
+sed -i s@'bower_components/stevia-components/'@@g $BP/index.html
+sed -i s@'bower_components/'@@g $BP/index.html
+## end fix paths
