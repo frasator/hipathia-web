@@ -177,7 +177,7 @@
                     <div>Variant file:
                         <span class="key">(Required when using expression database)</span> &nbsp;
                         </stv-opencga-file-origin>
-                        <stv-file-origin id="variant_file" selection-mode="file" bioformats="{{variantBioformat}}" user-data="{{userData}}" on-ok-click="checkVariantFile">
+                        <stv-file-origin id="variant_file" selection-mode="file" bioformats="{{variantBioformat}}" user-data="{{userData}}" on-ok-click="checkVariantFile" selected-file="{{variantFile}}">
                         </stv-file-origin>
                         <span id="variant_fileError" class="errmsg"></span>
                     </div>
@@ -585,6 +585,8 @@
                 this._clearError('condition');
                 this._clearError('pathways');
                 this._clearError('model');
+
+                this.selectAllPw();
             },
             launchJob: function(e) {
                 var me = this;
