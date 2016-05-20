@@ -28,7 +28,7 @@
         "crypto-js": "3.1.6",
         "pako": "~0.2.8",
         "network-viewer": "git@gitlab.bioinfo.cipf.es:bioinfo/network-viewer.git#develop",
-        "stevia-components": "git@gitlab.bioinfo.cipf.es:stevia/stevia-components.git#develop",
+        "stevia-elements": "git@gitlab.bioinfo.cipf.es:stevia/stevia-elements.git#develop",
         "iron-list": "^1.2.8"
     },
     "private": true
