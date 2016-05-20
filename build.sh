@@ -13,8 +13,8 @@ vulcanize --inline-scripts --inline-css --strip-comments $ELEMENT.html > $BP/$EL
 cp -r $NAME-index.html $BP/index.html
 cp -r conf/ $BP/
 cp -r pathway_list.json $BP/
-cp -r bower_components/stevia-components/fonts/ $BP/
-cp -r bower_components/stevia-components/css/ $BP/
+cp -r bower_components/stevia-elements/fonts/ $BP/
+cp -r bower_components/stevia-elements/css/ $BP/
 cp -r bower_components/fontawesome/css $BP/fontawesome/
 cp -r bower_components/fontawesome/fonts $BP/fontawesome/
 cp -r bower_components/webcomponentsjs/*.min.js $BP/webcomponentsjs/
@@ -22,6 +22,6 @@ cp -r bower_components/webcomponentsjs/*.min.js $BP/webcomponentsjs/
 #
 # fix index.html paths
 #
-sed -i s@'bower_components/stevia-components/'@@g $BP/index.html
+sed -i s@'bower_components/stevia-elements/'@@g $BP/index.html
 sed -i s@'bower_components/'@@g $BP/index.html
 ## end fix paths
