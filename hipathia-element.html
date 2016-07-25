@@ -20,11 +20,11 @@
 <link rel="import" href="bower_components/stevia-elements/src/form/stv-file-origin.html">
 <link rel="import" href="bower_components/stevia-elements/src/file/stv-file-browser.html">
 <link rel="import" href="bower_components/stevia-elements/src/job/stv-job-browser.html">
+<link rel="import" href="bower_components/stevia-elements/src/report/stv-report.html">
 
 <link rel="import" href="src/hipathia-home.html">
 <link rel="import" href="src/hipathia-signaling-form.html">
 <link rel="import" href="src/hipathia-prediction-form.html">
-<link rel="import" href="src/hipathia-result.html">
 
 <dom-module id="hipathia-element">
     <style is="custom-style" include="iron-flex iron-flex-reverse iron-flex-alignment iron-flex-factors iron-positioning"></style>
@@ -104,7 +104,7 @@
 
         hipathia-prediction-form,
         hipathia-signaling-form,
-        hipathia-result {
+        stv-report {
             height: calc(100vh - 60px);
             overflow-y: auto;
         }
@@ -116,6 +116,7 @@
         </div>
 
         <div id="jobContent" class="content" menu-option="job">
+            <stv-report id="report"></stv-report>
         </div>
 
         <div class="content" menu-option="home,job,signaling,prediction">
@@ -123,8 +124,7 @@
                 <div class="header">
                     <i class="fa fa-flask"></i>&nbsp; Browse my jobs
                 </div>
-                <stv-job-browser id="jobBrowser" class="container flex" on-jobselect="handleJobSelect" allowed-tools="{{allowedTools}}" on-need-refresh="handleUserNeedRefresh" user-data="{{userData}}" disable-relaunch="{{disableRelaunch}}" hide-status-filter="{{hideStatusFilter}}"
-                    hide-tool-filter="{{hideToolFilter}}">
+                <stv-job-browser id="jobBrowser" class="container flex" on-jobselect="handleJobSelect" allowed-tools="{{allowedTools}}" on-need-refresh="handleUserNeedRefresh" user-data="{{userData}}" disable-relaunch="{{disableRelaunch}}" hide-status-filter="{{hideStatusFilter}}" hide-tool-filter="{{hideToolFilter}}">
                 </stv-job-browser>
             </stv-panel>
             <stv-panel id="fileBrowserPanel" hidden collapsible movable closable resizable on-hidden="handlePanelHidden">
@@ -250,14 +250,15 @@
                 var me = this;
                 var job = e.detail;
                 if (job && job.status === 'DONE') {
-                    while (this.$.jobContent.firstChild) {
-                        this.$.jobContent.removeChild(this.$.jobContent.firstChild);
-                    }
                     this.set('selectedOption', 'job');
-                    // var result = document.createElement( execution + '-result');
-                    var result = document.createElement('hipathia' + '-result');
-                    Polymer.dom(me.$.jobContent).appendChild(result);
-                    result.set('job', job);
+                    this.$.report.hideJobInformation = true;
+                    this.$.report.set('job', job);
+                    //
+                    // while (this.$.jobContent.firstChild) {
+                    //     this.$.jobContent.removeChild(this.$.jobContent.firstChild);
+                    // }
+                    // var report = document.createElement('stv-report');
+                    // Polymer.dom(me.$.jobContent).appendChild(report);
                 }
             },
             handleJobLaunched: function() {
