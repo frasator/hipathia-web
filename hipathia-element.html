@@ -20,6 +20,7 @@
 <link rel="import" href="bower_components/stevia-elements/src/form/stv-file-origin.html">
 <link rel="import" href="bower_components/stevia-elements/src/file/stv-file-browser.html">
 <link rel="import" href="bower_components/stevia-elements/src/job/stv-job-browser.html">
+<link rel="import" href="bower_components/stevia-elements/src/stv-cluster-status.html">
 <link rel="import" href="bower_components/stevia-elements/src/report/stv-report.html">
 
 <link rel="import" href="src/hipathia-home.html">
@@ -206,6 +207,7 @@
                     </li>
                 </ul>
             </stv-dropdown>
+            <stv-cluster-status id="clusterStatus" type="dark" class="cluster-status"></stv-cluster-status>
         </stv-header>
 
         <stv-footer menu-option="home,login,signup,profile,remember">
@@ -230,7 +232,7 @@
                 allowedTools: {
                     type: Array,
                     value: function() {
-                        return ['pathways.differential-signaling', 'pathways.prediction-train', 'pathways.prediction-test'];
+                        return ['hipathia.differential-signaling', 'hipathia.prediction-train', 'hipathia.prediction-test'];
                     }
                 },
             },
