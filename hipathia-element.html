@@ -30,7 +30,7 @@
 <dom-module id="hipathia-element">
     <style is="custom-style" include="iron-flex iron-flex-reverse iron-flex-alignment iron-flex-factors iron-positioning"></style>
     <style>
-        :host {
+         :host {
             display: block;
             position: relative;
             cursor: default;
@@ -269,7 +269,11 @@
                 this.$.stvHeader.getUserInfo(true);
             },
             handleLogin: function() {
-                this.selectedOption = "home";
+                if (Cookies('bioinfo_user').indexOf("anonymous___") != -1) {
+                    this.setMenu('signaling');
+                } else {
+                    this.selectedOption = "home";
+                }
                 if (this._lastLogedRequest) {
                     this._lastLogedRequest = null;
                 }
@@ -292,7 +296,6 @@
                 if (this.$.stvHeader.isLogged != true) {
                     this.$.stvHeader.anonymousSign();
                 }
-                this.setMenu('signaling');
             },
 
             handleExample: function(e) {
