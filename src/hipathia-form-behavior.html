@@ -149,7 +149,7 @@
 
         checkVariantFile: function(e) {
             var file = e.currentTarget.selectedFile;
-            var bool = (file != null && Utils.endsWith(file.name, ".vcf") && file.bioformat == "VARIANT");
+            var bool = (file != null && stv.utils.endsWith(file.name, ".vcf") && file.bioformat == "VARIANT");
             if (bool) {
                 this.$.variant_fileError.innerHTML = '';
                 this.set('variantFile', file);
